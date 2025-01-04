@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .gfg {
+            margin: 3%;
+            position: relative;
+        }
+
+        .text-container {
+            position: absolute;
+            color: rgb(255, 255, 255);
+            left: 10rem;
+            top: 2rem;
+            padding: 0 1rem;
+        }
+
+        /* Style for the search bar */
+        #search-bar {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #search-results {
+            margin-top: 10px;
+        }
+
+        .result {
+            padding: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .result:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="gfg">
+        <img src="{{ url_for('static', filename='plants.jpeg') }}" width="2000" height="1500">
+        <div class="text-container">
+            <h1 style="color:Dodgerblue;">“Life (ayu) is the combination (samyoga) of body, senses, mind, and reincarnating soul.”</h1>
+        </div>
+    </div>
+
+    <h1><b>Know Your Medication</b></h1>
+    <input type="text" id="search-bar" placeholder="Search...">
+    <div id="search-results"></div>
+
+    <script>
+        const dataList = [
+            { name: "tradition", link: "tradition.html" },
+            { name: "ayurvedham", link: "ayurvedham.html" },
+            { name: "kashayams", link: "kashayams.html" },
+            { name: "kadha", link: "kadha.html" },
+            { name: "asthma", link: "asthma.html" },
+            { name: "arthritis", link: "arthritis.html" },
+            { name: "atopic", link: "atopic.html" },
+            { name: "stress", link: "stress.html" },
+            { name: "anxiety", link: "anxiety.html" },
+            { name: "digestive", link: "digestive.html" },
+            { name: "bloodpressure", link: "bloodpressure.html" },
+            { name: "headache", link: "headache.html" },
+        ];
+
+        const searchInput = document.getElementById('search-bar');
+        const searchResults = document.getElementById('search-results');
+
+        function updateResults() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredList = dataList.filter(item => item.name.toLowerCase().includes(searchTerm));
+
+            searchResults.innerHTML = '';
+            filteredList.forEach(item => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result');
+                resultItem.textContent = item.name;
+                resultItem.addEventListener('click', () => {
+                    window.location.href = item.link;
+                });
+                searchResults.appendChild(resultItem);
+            });
+        }
+
+        searchInput.addEventListener('input', updateResults);
+    </script>
+
+    <ul style="list-style-type:square;">
+        <a href="ayurvedham.html"><li><i><h3>AYURVEDHAM</h3></i></li></a>
+        <a href="tradition.html"><li><i><h3>TRADITION</h3></i></li></a>
+        <a href="kashayams.html"><li><i><h3>KASHAYAMS</h3></i></li></a>
+        <a href="kadha.html"><li><i><h3>KADHA</h3></i></li></a>
+    </ul>
+
+    <img src="{{ url_for('static', filename='download.jpeg') }}">
+    <img src="{{ url_for('static', filename='download1.jpeg') }}" width="300" height="180">
+    <img src="{{ url_for('static', filename='herb.jpeg') }}" width="300" height="180">
+</body>
+</html>
